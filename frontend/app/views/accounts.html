@@ -1,0 +1,40 @@
+<div class="page-content">
+  <div class="section-header">
+    <h1 class="section-title">Accounts</h1>
+    <a ui-sref="app.add-account" class="btn btn-primary btn-sm">
+      <span class="material-icons" style="font-size:18px;vertical-align:middle;">add_circle</span> Add
+    </a>
+  </div>
+
+  <div class="summary-card" style="margin-bottom:25px;">
+    <p class="total-balance-label">Total Net Balance</p>
+    <span class="total-balance-amount">{{ currency }} {{ totalBalance | number:2 }}</span>
+  </div>
+
+  <div class="account-list" ng-if="accounts.length">
+    <div class="account-card" ng-repeat="acc in accounts">
+      <div class="account-info">
+        <div class="account-icon-wrap">
+          <span class="material-icons">{{ acc.icon_name }}</span>
+        </div>
+        <div>
+          <div class="account-name">{{ acc.name }}</div>
+          <div class="account-type-label">{{ acc.account_type }}</div>
+        </div>
+      </div>
+      <div class="account-balance" ng-class="{'negative-balance': acc.balance < 0}">
+        {{ currency }} {{ acc.balance | number:2 }}
+      </div>
+      <div class="account-actions">
+        <a ui-sref="app.edit-account({id: acc._id})" class="action-btn edit-btn"><span class="material-icons">edit</span></a>
+        <button class="action-btn delete-btn" ng-click="delete(acc._id)"><span class="material-icons">delete</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" ng-if="!accounts.length">
+    <span class="material-icons">account_balance_wallet</span>
+    <p>No accounts yet.</p>
+    <a ui-sref="app.add-account" class="btn btn-primary">Add First Account</a>
+  </div>
+</div>

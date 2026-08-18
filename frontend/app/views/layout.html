@@ -1,0 +1,45 @@
+<div class="app-wrapper" ng-controller="AppController">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <span class="app-logo"><span class="material-icons">account_balance_wallet</span> MyMoney</span>
+      <div class="header-actions">
+        <a ui-sref="app.profile" class="header-icon" title="Profile">
+          <span class="material-icons">person</span>
+        </a>
+        <button class="header-icon" ng-click="logout()" title="Logout">
+          <span class="material-icons">logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="main-content">
+    <div ui-view></div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="footer-nav">
+    <a ui-sref="app.transactions" ui-sref-active="active" class="nav-item">
+      <span class="material-icons">receipt_long</span>
+      <span>Records</span>
+    </a>
+    <a ui-sref="app.analysis" ui-sref-active="active" class="nav-item">
+      <span class="material-icons">pie_chart</span>
+      <span>Analysis</span>
+    </a>
+    <a ui-sref="app.add-transaction" ui-sref-active="active" class="nav-item nav-center-button">
+      <span class="material-icons">add_circle_outline</span>
+      <span>New</span>
+    </a>
+    <a ui-sref="app.accounts" ui-sref-active="active" class="nav-item">
+      <span class="material-icons">account_balance_wallet</span>
+      <span>Accounts</span>
+    </a>
+    <a ui-sref="app.categories" ui-sref-active="active" class="nav-item">
+      <span class="material-icons">category</span>
+      <span>Categories</span>
+    </a>
+  </nav>
+</div>

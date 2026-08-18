@@ -1,0 +1,45 @@
+<div class="page-content">
+  <div class="form-page-header">
+    <a ui-sref="app.categories" class="back-btn"><span class="material-icons">arrow_back</span></a>
+    <h1>{{ isEdit ? 'Edit Category' : 'Add Category' }}</h1>
+  </div>
+
+  <div class="form-card">
+    <div class="alert alert-error" ng-if="error">{{ error }}</div>
+
+    <form ng-submit="save()" novalidate>
+      <div class="form-group">
+        <label>Category Name</label>
+        <input type="text" ng-model="formData.name" placeholder="e.g. Food & Dining" required>
+      </div>
+
+      <div class="form-group" ng-if="!isEdit">
+        <label>Type</label>
+        <div class="type-selector">
+          <button type="button" class="type-btn expense-btn" ng-class="{active: formData.type==='expense'}" ng-click="formData.type='expense'">
+            <span class="material-icons">trending_down</span> Expense
+          </button>
+          <button type="button" class="type-btn income-btn" ng-class="{active: formData.type==='income'}" ng-click="formData.type='income'">
+            <span class="material-icons">trending_up</span> Income
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Icon</label>
+        <div class="icon-grid">
+          <button type="button" class="icon-option" ng-repeat="ic in icons"
+            ng-class="{selected: formData.icon_name === ic.name}"
+            ng-click="formData.icon_name = ic.name" title="{{ ic.label }}">
+            <span class="material-icons">{{ ic.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        {{ isEdit ? 'Update Category' : 'Save Category' }}
+      </button>
+      <a ui-sref="app.categories" class="btn btn-secondary btn-block" style="margin-top:10px;">Cancel</a>
+    </form>
+  </div>
+</div>

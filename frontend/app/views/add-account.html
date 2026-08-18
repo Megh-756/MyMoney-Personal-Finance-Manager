@@ -1,0 +1,46 @@
+<div class="page-content">
+  <div class="form-page-header">
+    <a ui-sref="app.accounts" class="back-btn"><span class="material-icons">arrow_back</span></a>
+    <h1>{{ isEdit ? 'Edit Account' : 'Add Account' }}</h1>
+  </div>
+
+  <div class="form-card">
+    <div class="alert alert-error" ng-if="error">{{ error }}</div>
+
+    <form ng-submit="save()" novalidate>
+      <div class="form-group">
+        <label>Account Name</label>
+        <input type="text" ng-model="formData.name" placeholder="e.g. SBI Savings Account" required>
+      </div>
+
+      <div class="form-group">
+        <label>Account Type</label>
+        <select ng-model="formData.account_type">
+          <option ng-repeat="t in accountTypes" value="{{ t }}">{{ t }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Icon</label>
+        <div class="icon-grid">
+          <button type="button" class="icon-option" ng-repeat="ic in icons"
+            ng-class="{selected: formData.icon_name === ic.name}"
+            ng-click="formData.icon_name = ic.name" title="{{ ic.label }}">
+            <span class="material-icons">{{ ic.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="!isEdit">
+        <label>Initial Balance</label>
+        <input type="number" ng-model="formData.balance" placeholder="0.00" step="0.01">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="loading">
+        <span ng-if="!loading">{{ isEdit ? 'Update Account' : 'Save Account' }}</span>
+        <span ng-if="loading">Saving...</span>
+      </button>
+      <a ui-sref="app.accounts" class="btn btn-secondary btn-block" style="margin-top:10px;">Cancel</a>
+    </form>
+  </div>
+</div>

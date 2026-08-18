@@ -1,0 +1,50 @@
+<div class="page-content">
+  <div class="section-header">
+    <h1 class="section-title">Transactions</h1>
+    <a ui-sref="app.add-transaction" class="btn btn-primary btn-sm">
+      <span class="material-icons" style="font-size:18px;vertical-align:middle;">add_circle</span> Add
+    </a>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <button class="filter-tab" ng-class="{active: filter==='all'}" ng-click="setFilter('all')">All</button>
+    <button class="filter-tab" ng-class="{active: filter==='income'}" ng-click="setFilter('income')">Income</button>
+    <button class="filter-tab" ng-class="{active: filter==='expense'}" ng-click="setFilter('expense')">Expense</button>
+    <button class="filter-tab" ng-class="{active: filter==='transfer'}" ng-click="setFilter('transfer')">Transfer</button>
+  </div>
+
+  <div class="loading-spinner" ng-if="loading">
+    <span class="material-icons rotating">autorenew</span> Loading...
+  </div>
+
+  <div class="transaction-list" ng-if="transactions.length && !loading">
+    <div class="transaction-item" ng-repeat="t in transactions">
+      <div class="trans-details">
+        <div class="trans-icon-box" ng-class="{'transfer-icon': t.type==='transfer'}">
+          <span class="material-icons">{{ getIcon(t) }}</span>
+        </div>
+        <div>
+          <div class="trans-description">{{ getDescription(t) }}</div>
+          <div class="trans-date">{{ t.date | date:'MMM dd, yyyy' }}
+            <span ng-if="t.remarks" class="trans-remarks"> | {{ t.remarks }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="trans-right">
+        <div class="trans-amount" ng-class="{'amount-income': t.type==='income','amount-expense': t.type==='expense','amount-transfer': t.type==='transfer'}">
+          <span ng-if="t.type==='expense'">-</span>{{ currency }} {{ t.amount | number:2 }}
+        </div>
+        <div class="trans-actions">
+          <a ui-sref="app.edit-transaction({id: t._id})" class="action-btn edit-btn"><span class="material-icons">edit</span></a>
+          <button class="action-btn delete-btn" ng-click="delete(t._id)"><span class="material-icons">delete</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" ng-if="!transactions.length && !loading">
+    <span class="material-icons">receipt_long</span>
+    <p>No transactions found.</p>
+  </div>
+</div>

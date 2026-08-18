@@ -1,0 +1,78 @@
+<div class="page-content">
+  <h1 class="section-title">Analysis</h1>
+
+  <!-- Month Navigator -->
+  <div class="month-navigator">
+    <button class="nav-arrow" ng-click="prevMonth()">
+      <span class="material-icons">chevron_left</span>
+    </button>
+    <h2 class="month-label">{{ displayMonth }}</h2>
+    <button class="nav-arrow" ng-click="nextMonth()">
+      <span class="material-icons">chevron_right</span>
+    </button>
+  </div>
+
+  <div ng-if="loading" style="text-align:center; padding: 40px 0; color: #aaa;">
+    <span class="material-icons" style="font-size:40px; animation: spin 1s linear infinite;">refresh</span>
+    <p>Loading analysis...</p>
+  </div>
+
+  <div ng-if="data && !loading">
+    <!-- Summary Cards -->
+    <div class="summary-row">
+      <div class="summary-mini-card income-card">
+        <p class="mini-label">Income</p>
+        <p class="mini-amount amount-income">{{ currency }} {{ data.income_total | number:2 }}</p>
+      </div>
+      <div class="summary-mini-card expense-card">
+        <p class="mini-label">Expense</p>
+        <p class="mini-amount amount-expense">{{ currency }} {{ data.expense_total | number:2 }}</p>
+      </div>
+    </div>
+
+    <div class="net-card" ng-class="{'net-positive': data.net >= 0, 'net-negative': data.net < 0}">
+      <span class="material-icons">{{ data.net >= 0 ? 'trending_up' : 'trending_down' }}</span>
+      <div>
+        <p class="mini-label">Net {{ data.net >= 0 ? 'Savings' : 'Deficit' }}</p>
+        <p class="mini-amount" ng-class="{'amount-income': data.net >= 0, 'amount-expense': data.net < 0}">
+          {{ currency }} {{ (data.net < 0 ? -data.net : data.net) | number:2 }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Expense Chart -->
+    <div class="chart-section" ng-show="data.expense_breakdown.length">
+      <h3 class="chart-title expense-title">Expense Breakdown</h3>
+      <div class="chart-wrap">
+        <canvas id="expenseChart"></canvas>
+      </div>
+      <div class="breakdown-list">
+        <div class="breakdown-item" ng-repeat="item in data.expense_breakdown">
+          <span class="material-icons breakdown-icon expense-cat-icon">{{ item.icon }}</span>
+          <span class="breakdown-name">{{ item.name }}</span>
+          <span class="breakdown-amount amount-expense">{{ currency }} {{ item.total | number:2 }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Income Chart -->
+    <div class="chart-section" ng-show="data.income_breakdown.length">
+      <h3 class="chart-title income-title">Income Breakdown</h3>
+      <div class="chart-wrap">
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <div class="breakdown-list">
+        <div class="breakdown-item" ng-repeat="item in data.income_breakdown">
+          <span class="material-icons breakdown-icon income-cat-icon">{{ item.icon }}</span>
+          <span class="breakdown-name">{{ item.name }}</span>
+          <span class="breakdown-amount amount-income">{{ currency }} {{ item.total | number:2 }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" ng-if="!data.expense_breakdown.length && !data.income_breakdown.length">
+      <span class="material-icons">bar_chart</span>
+      <p>No transactions recorded for {{ displayMonth }}.</p>
+    </div>
+  </div>
+</div>

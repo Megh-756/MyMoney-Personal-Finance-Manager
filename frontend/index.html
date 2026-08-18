@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myMoneyApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyMoney - Personal Finance Manager</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Angular UI-Router view outlet -->
+  <div ui-view></div>
+
+  <!-- AngularJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.30/angular-ui-router.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="app/app.js"></script>
+  <script src="app/services/auth.service.js"></script>
+  <script src="app/services/account.service.js"></script>
+  <script src="app/services/category.service.js"></script>
+  <script src="app/services/transaction.service.js"></script>
+  <script src="app/services/analysis.service.js"></script>
+  <script src="app/controllers/auth.controller.js"></script>
+  <script src="app/controllers/dashboard.controller.js"></script>
+  <script src="app/controllers/accounts.controller.js"></script>
+  <script src="app/controllers/categories.controller.js"></script>
+  <script src="app/controllers/transactions.controller.js"></script>
+  <script src="app/controllers/analysis.controller.js"></script>
+  <script src="app/controllers/profile.controller.js"></script>
+</body>
+</html>

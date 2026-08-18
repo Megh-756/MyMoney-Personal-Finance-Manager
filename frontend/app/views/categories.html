@@ -1,0 +1,48 @@
+<div class="page-content">
+  <div class="section-header">
+    <h1 class="section-title">Categories</h1>
+    <a ui-sref="app.add-category" class="btn btn-primary btn-sm">
+      <span class="material-icons" style="font-size:18px;vertical-align:middle;">add_circle</span> Add
+    </a>
+  </div>
+
+  <!-- Income Categories -->
+  <div class="category-group">
+    <h2 class="group-title income-title">
+      <span class="material-icons">trending_up</span> Income
+    </h2>
+    <div ng-if="incomeCategories.length">
+      <div class="category-item" ng-repeat="cat in incomeCategories">
+        <div class="category-name-icon">
+          <span class="material-icons cat-icon income-cat-icon">{{ cat.icon_name }}</span>
+          <span>{{ cat.name }}</span>
+        </div>
+        <div class="account-actions">
+          <a ui-sref="app.edit-category({id: cat._id})" class="action-btn edit-btn"><span class="material-icons">edit</span></a>
+          <button class="action-btn delete-btn" ng-click="delete(cat._id)"><span class="material-icons">delete</span></button>
+        </div>
+      </div>
+    </div>
+    <p class="empty-cat" ng-if="!incomeCategories.length">No income categories. <a ui-sref="app.add-category">Add one</a></p>
+  </div>
+
+  <!-- Expense Categories -->
+  <div class="category-group">
+    <h2 class="group-title expense-title">
+      <span class="material-icons">trending_down</span> Expense
+    </h2>
+    <div ng-if="expenseCategories.length">
+      <div class="category-item" ng-repeat="cat in expenseCategories">
+        <div class="category-name-icon">
+          <span class="material-icons cat-icon expense-cat-icon">{{ cat.icon_name }}</span>
+          <span>{{ cat.name }}</span>
+        </div>
+        <div class="account-actions">
+          <a ui-sref="app.edit-category({id: cat._id})" class="action-btn edit-btn"><span class="material-icons">edit</span></a>
+          <button class="action-btn delete-btn" ng-click="delete(cat._id)"><span class="material-icons">delete</span></button>
+        </div>
+      </div>
+    </div>
+    <p class="empty-cat" ng-if="!expenseCategories.length">No expense categories. <a ui-sref="app.add-category">Add one</a></p>
+  </div>
+</div>
